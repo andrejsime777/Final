@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Add User to Json</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <div class="container">
+        <div style="font-size: 25px;">Fill form to create an account.</div><br>
+        <form>
+            <label for="name"><b>Enter name</b></label>
+            <input type="text" placeholder="Enter Name" name="name" id="name" required />
+        
+            <label for="lastname"><b>Enter last name</b></label>
+            <input type="text" placeholder="Enter last name" name="lastname" id="lastname" required />
+        
+            <label for="id"><b>Enter student id</b></label>
+            <input type="number" placeholder="Enter student id" name="id" id="id" required />
+        
+            <label for="email"><b>Enter email</b></label>
+            <input type="text" placeholder="Enter email" name="email" id="email" required />
+        
+            <button type="submit" class="registerbtn" onclick="addToJson()">Register</button>
+        </form>
+
+      </div>
+      <script>
+        function addToJson() {
+        firstName = document.getElementById("name").value;
+        lastName = document.getElementById("lastname").value;
+        email = document.getElementById("email").value;
+        studentId = document.getElementById("id").value;
+        let object={
+          firstName,
+          lastName,
+          studentId,
+          email
+        };
+        localStorage.setItem("Info", JSON.stringify(object));
+        var url = "https://ip-uacs.herokuapp.com/api/student";
+    
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url);
+    
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("Content-Type", "application/json");
+    
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+              console.log(xhr.status);
+              console.log(xhr.responseText);
+          }};
+    
+        xhr.send(JSON.stringify(object));
+        window.alert("Account successfully added!");
+    
+      }
+      </script>
+</body>
+</html>

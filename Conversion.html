@@ -1,0 +1,52 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+
+
+<script type="text/javascript">
+	var input = document.querySelector('#inputText');
+	function calculatetoCelsius() {
+		Fahr = document.getElementById("inputText").value
+		if (window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+		} else {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange = function () {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				document.getElementById("resulta").innerHTML = xmlhttp.responseText;
+			}
+		}
+		xmlhttp.open("POST", "https://ip-uacs.herokuapp.com/api/Convert/ToCelsius/" + Fahr, true);
+		xmlhttp.send();
+	}
+	function calculatetoFahrenheit() {
+		Cel = document.getElementById("inputText1").value
+		if (window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+		} else {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange = function () {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				document.getElementById("resultb").innerHTML = xmlhttp.responseText;
+			}
+		}
+		xmlhttp.open("POST", "https://ip-uacs.herokuapp.com/api/Convert/ToFahrenheit/" + Cel, true);
+		xmlhttp.send();
+	}
+</script>
+
+
+</head>
+<body>
+	Enter temperature in Fahrenheit: <input type="Text" name="valFrom" id="inputText">
+	<strong><div id="resulta">&nbsp;</div></strong><br>
+	<button type="button" onclick="calculatetoCelsius()">Calcucate</button><br><br>
+
+	Enter temperature in Celsius: <input type="Text" name="valFrom" id="inputText1">
+	<strong><div id="resultb">&nbsp;</div></strong><br>
+	<button type="button" onclick="calculatetoFahrenheit()">Calcucate</button>
+</body>
+</html>
+
